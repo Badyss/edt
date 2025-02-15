@@ -1,0 +1,86 @@
+body {
+  font-family: Arial, sans-serif;
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-size:20px;
+}
+body div form{
+    display: flex;
+    margin-top:20px;
+    margin-left:20px;
+}
+h1 {
+  text-align: center;
+  font-size:23px;
+  margin: 20px 0;
+  color: #333;
+}
+.fc-event-main {
+    font-size:14px;
+}
+#calendar {
+  width: 70%;  
+  height: 800px; 
+  margin: 0 auto;
+  flex-grow: 1; /* Fait en sorte que le calendrier occupe l'espace restant */
+  overflow: auto; 
+    }
+
+@media (max-width: 1068px) {
+  #calendar {
+    width: 100%; 
+  }
+  .fc-col-header-cell-cushion {
+    font-size:12px
+  }
+}
+.fc-header-toolbar.fc-toolbar.fc-toolbar-ltr {
+  display: none;
+}
+button.connexion-btn {
+padding: 10px 20px; /* Espace interne pour un aspect confortable */
+font-size: 16px; /* Taille de police lisible */
+background-color: red; /* Couleur de fond (vert) */
+color: white; /* Couleur du texte */
+border: none; /* Supprime la bordure par défaut */
+border-radius: 5px; /* Coins arrondis */
+cursor: pointer; /* Change le curseur au survol */
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ajoute une ombre discrète */
+transition:  0.2s ; /* Animation douce */
+}
+
+button.connexion-btn:hover {
+background-color: rgb(179, 6, 6); /* Couleur plus sombre au survol */
+box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15); /* Accentue l'ombre */
+transform: scale(1.02); /* Légère mise en avant */
+}
+
+h3 {
+margin-top: 20px; /* Ajuste l'espace entre le calendrier et le texte */
+padding: 10px;
+font-size:12px;
+background-color: #fff;
+text-align: center;
+position: initial;
+font-family: 'Lexend', sans-serif;
+
+}
+
+h3 a {
+color: #38b6ff;
+}
+
+h3 a:hover {
+text-decoration: underline;
+}
+
+@media (min-width: 1068px) {
+h3 {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+    }
+}

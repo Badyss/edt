@@ -1,0 +1,26 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EDT - Planning</title>
+  <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTou9LMT-s5yIodvEVb_8APckd7iCvTv1h7Xg&s" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css.css' %}">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+  <script src="{% static 'js.js' %}"></script>
+</head>
+<body>
+    <div>
+        <h2 id="user-name"></h2>
+        <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit" class="connexion-btn">Déconnexion</button>
+        </form>
+    </div>
+  <h1 id="edt"></h1>
+  <div id="calendar"></div>
+  <h3>© 2025 par <a href="https://www.linkedin.com/in/badyss/" target="_blank">Badyss AZZOUZ</a></h3>
+</body>
+</html>

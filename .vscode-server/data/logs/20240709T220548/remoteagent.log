@@ -1,0 +1,12 @@
+2024-07-09 22:05:48.426 [info] 
+
+
+
+
+2024-07-09 22:05:48.438 [info] Extension host agent started.
+2024-07-09 22:05:48.510 [info] Started initializing default profile extensions in extensions installation folder. file:///home/badyss/.vscode-server/extensions
+2024-07-09 22:05:48.531 [info] [<unknown>][ec7f8a67][ExtensionHostConnection] New connection established.
+2024-07-09 22:05:48.542 [info] [<unknown>][dae02f6f][ManagementConnection] New connection established.
+2024-07-09 22:05:48.550 [info] Completed initializing default profile extensions in extensions installation folder. file:///home/badyss/.vscode-server/extensions
+2024-07-09 22:05:48.643 [info] [<unknown>][ec7f8a67][ExtensionHostConnection] <36585> Launched Extension Host Process.
+2024-07-09 22:10:48.440 [info] New EH opened, aborting shutdown

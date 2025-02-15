@@ -1,0 +1,56 @@
+   114.7ms (setup:755): 2025-02-08 21:54:36
+   114.8ms (setup:756): /usr/bin/pipx install psycopg2
+   114.8ms (setup:757): pipx version is 1.1.0
+   114.9ms (setup:758): Default python interpreter is '/usr/bin/python3'
+   114.9ms (mkdir:81): creating directory /home/badyss/.local/pipx/venvs
+   115.0ms (mkdir:81): creating directory /home/badyss/.local/bin
+   115.0ms (mkdir:81): creating directory /home/badyss/.local/pipx/.cache
+   115.1ms (setup:766): Adding CACHEDIR.TAG to cache directory
+   115.8ms (package_name_from_spec:323): Determined package name: psycopg2
+   115.8ms (package_name_from_spec:324): Package name determined in 0.0s
+   116.2ms (run_subprocess:173): running /usr/bin/python3 -m venv --without-pip /home/badyss/.local/pipx/venvs/psycopg2
+   199.2ms (run_subprocess:186): stdout:
+   199.4ms (run_subprocess:188): stderr:
+   199.4ms (run_subprocess:189): returncode: 0
+   200.2ms (run_subprocess:173): running /usr/bin/python3 -m venv --clear /home/badyss/.local/pipx/shared
+  5029.0ms (run_subprocess:186): stdout:
+  5029.1ms (run_subprocess:188): stderr:
+  5029.1ms (run_subprocess:189): returncode: 0
+  5029.4ms (upgrade:91): Upgrading shared libraries in /home/badyss/.local/pipx/shared
+  5029.8ms (run_subprocess:173): running /home/badyss/.local/pipx/shared/bin/python -m pip --disable-pip-version-check install --force-reinstall -q --upgrade pip setuptools wheel
+  9447.9ms (run_subprocess:186): stdout:
+  9448.0ms (run_subprocess:188): stderr:
+  9448.0ms (run_subprocess:189): returncode: 0
+  9448.3ms (run_subprocess:173): running /home/badyss/.local/pipx/venvs/psycopg2/bin/python -c import sysconfig; print(sysconfig.get_path('purelib'))
+  9460.6ms (run_subprocess:186): stdout: /home/badyss/.local/pipx/venvs/psycopg2/lib/python3.11/site-packages
+  9460.7ms (run_subprocess:189): returncode: 0
+  9460.9ms (run_subprocess:173): running /home/badyss/.local/pipx/shared/bin/python -c import sysconfig; print(sysconfig.get_path('purelib'))
+  9473.9ms (run_subprocess:186): stdout: /home/badyss/.local/pipx/shared/lib/python3.11/site-packages
+  9474.0ms (run_subprocess:189): returncode: 0
+  9474.3ms (run_subprocess:173): running /home/badyss/.local/pipx/venvs/psycopg2/bin/python --version
+  9475.5ms (run_subprocess:186): stdout: Python 3.11.2
+  9475.6ms (run_subprocess:188): stderr:
+  9475.6ms (run_subprocess:189): returncode: 0
+  9476.0ms (_parsed_package_to_package_or_url:128): cleaned package spec: psycopg2
+  9476.5ms (run_subprocess:173): running /home/badyss/.local/pipx/venvs/psycopg2/bin/python -m pip install psycopg2
+ 22705.7ms (run_subprocess:189): returncode: 0
+ 22706.3ms (run_subprocess:173): running <fetch_info_in_venv commands>
+ 22728.8ms (run_subprocess:186): stdout: {"sys_path": ["/usr/lib/python311.zip", "/usr/lib/python3.11", "/usr/lib/python3.11/lib-dynload", "/home/badyss/.local/pipx/venvs/psycopg2/lib/python3.11/site-packages", "/home/badyss/.local/pipx/shared/lib/python3.11/site-packages"], "python_version": "3.11.2", "environment": {"implementation_name": "cpython", "implementation_version": "3.11.2", "os_name": "posix", "platform_machine": "aarch64", "platform_release": "6.6.31+rpt-rpi-2712", "platform_system": "Linux", "platform_version": "#1 SMP PREEMPT Debian 1:6.6.31-1+rpt1 (2024-05-29)", "python_full_version": "3.11.2", "platform_python_implementation": "CPython", "python_version": "3.11", "sys_platform": "linux"}}
+ 22728.9ms (run_subprocess:189): returncode: 0
+ 22731.1ms (get_venv_metadata_for_package:303): get_venv_metadata_for_package: 25ms
+ 22731.2ms (_parsed_package_to_package_or_url:128): cleaned package spec: psycopg2
+ 22731.4ms (rmdir:55): removing directory /home/badyss/.local/pipx/venvs/psycopg2
+ 22732.7ms (cli:822): PipxError: No apps associated with package psycopg2 or its dependencies. If you are attempting to install a library, pipx should not be used. Consider using pip or a similar tool instead.
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/pipx/main.py", line 819, in cli
+    return run_pipx_command(parsed_pipx_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pipx/main.py", line 202, in run_pipx_command
+    return commands.install(
+           ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pipx/commands/install.py", line 69, in install
+    run_post_install_actions(
+  File "/usr/lib/python3/dist-packages/pipx/commands/common.py", line 358, in run_post_install_actions
+    raise PipxError(
+pipx.util.PipxError: No apps associated with package psycopg2 or its dependencies. If you are attempting to install a library, pipx should not be used. Consider using pip or a similar tool instead.
+ 22733.5ms (cli:830): pipx finished.

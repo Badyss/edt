@@ -1,0 +1,23 @@
+2024-07-09 22:29:23.535 [info] 
+
+
+
+
+2024-07-09 22:29:23.548 [info] Extension host agent started.
+2024-07-09 22:29:23.624 [info] [<unknown>][8945c60b][ExtensionHostConnection] New connection established.
+2024-07-09 22:29:23.639 [info] [<unknown>][c64f9583][ManagementConnection] New connection established.
+2024-07-09 22:29:23.741 [info] [<unknown>][8945c60b][ExtensionHostConnection] <3560> Launched Extension Host Process.
+2024-07-09 22:29:25.793 [error] CodeExpectedError: Could not find pty on pty host
+    at A.U (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:56:30817)
+    at A.updateTitle (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:56:26017)
+    at D.<computed> (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:56:21292)
+    at Object.call (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:37:5367)
+    at c.s (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:35:5506)
+    at c.q (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:35:4947)
+    at b.value (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:35:4247)
+    at n.B (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:30:741)
+    at n.fire (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:30:958)
+    at process.$e (/home/badyss/.vscode-server/cli/servers/Stable-ea1445cc7016315d0f5728f8e8b12a45dc0a7286/server/out/vs/platform/terminal/node/ptyHostMain.js:25:11142)
+    at process.emit (node:events:518:28)
+    at emit (node:internal/child_process:951:14)
+    at process.processTicksAndRejections (node:internal/process/task_queues:83:21)

@@ -1,0 +1,84 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/html">
+<head>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTou9LMT-s5yIodvEVb_8APckd7iCvTv1h7Xg&s" type="image/x-icon">
+    <meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/><title>Authentification UTC</title>
+    <link type="text/css" rel="stylesheet" href="https://cas.utc.fr/cas/css/cas.css"/><link rel="icon" href="https://cas.utc.fr/cas/favicon.ico" type="image/x-icon"/><script type="text/javascript" src="https://cas.utc.fr/cas/webjars/jquery/3.6.1/jquery.min.js"></script>
+</head>
+<body id="cas" class="login">
+<main>
+    <div id="full-content">
+        <div class="main-inner">
+            <div id="cool-dots" aria-hidden="true">
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+                <span></span><span></span><span></span>
+            </div>
+
+            <h1>Authentification UTC</h1>
+            <article>
+                <div id="content">
+    <div id="cas-login-form">
+        <form method="POST" action="/app/fetch-schedule/">
+            {% csrf_token %}
+            <input type="hidden" name="execution" value="4bc7253e-88c0-426c-9eaa-892d02dfc138_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0lzSW10cFpDSTZJalJqTURZNU5HWXlMVEF5TmpJdE5HWTBPUzFoTlRRMExUUTNNR00wT1dWaFlqWmtaaUo5LmtnaWxWckxqVmZMTFVaYTdmNGFrMG5oSVNoTEFVdFN2ODhFLThfM3liYUFoUVNKbTlzUHJlSFI5Z1l5andMVklna0VEQzU4OFhfTlB2bWl2XzNmZUttYVJEVnY2cVk3TGR0Rzk0ajlnU21MWXNjYXdjVDlZb010WHlyNHI3bHBEOUhVREtWcC1GS0l5SThqSjExMDRvUWdwbThZc29TVEY4alpBMGpFdTMzcWN3NlVnTjB5MXVqVzJRRzdUOFFZODVCdGNVaDVWbngwREZRNmQ5NlFLd2IyZVpkNzdDek4yenR0S3BoX0p1MXl5RDJpT1dkZzlUQ09fMk1lMDdwdm84bm1GcXMyZUpUS1hIUEQzZTc3UU9NdGZMWXFKd05BYVNFeHJUWG1EY0JCbVc0enpsRXdxaEdzdmZTM1hRS3RMcVI2SFNWcEViRExodTdKWUtIN01wckhNbnNLMXdaRkE2VXlzWTh5aVRVZEV4bmRDdXVrWEJVR0RQZG8yRlViamNPTnlrNlV0T0p5UndxdFVZRFFYMUJLUXRERTNFQ1NmUW9iMEdMTENnb1I4MlJ6ck1kUE9IODVHakFNalNXYndyR0tzcHV5dVBmNUg1bWdVSFdnMjgxQ2V2Z0xoS19sVTU2QWM0b0NwYUpWTTRzSERNNmlsUTZaR3ZrV09uUTNVV1pnUkVTak4xSTFnRV9kNHFlblVvZm92Rjh0eE42VjZMMElYUXJvVmIzQ0g2Qk5QTlZVcjJqaWRlRFN2UHR6dElrUlRvYTh1bW1TLUZlVjlCNk5OMm82YkhFY2hobGNiQ3FHU0NCTWF3OWZUQWhEY2NjM2NBc3p2Umd0SnA4dFdnOHNFSk1XVFhWSUNWTmhZRUZ6dER1XzZsbXZIb043VUxieHVNNTBxakQ3cVNQZ3Azb3h2OUxWZ1NBSmpjTnZwZUI0ZWdScGlLTnh5WXNSLTAtRldhT2ZqRTVQOTNyS2tHSEdvQTdfNmVCQlZ2eG82U040cVFwajFRb0JHbGNkN19iOV9uZFlBdUtjcHFhZTZ2Tk94Z1EtOURPdEVGV09PbVZmRHUwNEU2SkxMRjR5TU5pOXdXVU9Ic25XYkdUOHJ1OFFJMXE0Wm5kXzVrV3VjamFleWhmS1NaUkxOWkNEaUVyT2ltWDMzbTJBcVZSVF9OR1R6OWY0LWw2V3YzU3FSV2pQX2ptdzEzWFN3VHRxZzJGeGhTVXMxTmNVa2dqSXg3TWxxWnVLbVMzaDJiYl9wT2F4SWFNTUdpaWFTdHk1WHRKZl90X3hwU3l6dndlMUtyQk9GMWR4ZWJHckJvV3N1ano3SGV1RzFMWjlKdXR6S2JESmFSM0dSMXF1eks3X1VScndEV05pMnlpMWpFZ05FTF9PN2VlWDMwT1RFVWhScEp2YTYxeXNhVC1jSTZ6QnlZdlloMnM0UEktbzJDOHZISjhVQzZRUGNGd3MtODVtZmYtVVJsdmVtVW9vLnVHZnJOcnAyVzJZcjVqcFJXZWxCVUxob1RtSm1uY2Utc2JUejgtN2xESk40YXBuZGluNEVSdEI5T2pUc0dJdGNZa2R2VURqWi16a2hVWDVuQ1JCQlVR"/><input type="hidden" name="_eventId" value="submit"/><input type="hidden" name="geolocation"/><!-- Username input with error message --><div class="form-group">
+                {% if request.GET.error == 'motdepasseincorrect' %}
+                    <p id="error_general" class="errors fs-small mb-20">Mauvais Identifiant / mot de passe.</p>
+                {% endif %}
+                <label for="username" class="BigLabel"><span class="accesskey">I</span>dentifiant:</label>
+                <input name="username" id="username" type="text" class="form-control input-group-lg" autocomplete="off"
+                       autofocus></div>
+
+            <!-- Password input with error message --><div class="form-group">
+                <label for="password" class="BigLabel"><span class="accesskey">M</span>ot de passe:</label>
+                <div class="input-with-icon password-box">
+                    <input name="password" id="password" type="password" class="form-control input-group-lg"
+                           autocomplete="off"/><span class="icon eye-slash" role="button" id="togglePassword"></span>
+                </div>
+                </div>
+
+            <!-- Submit button --><button type="submit" class="with-icon button-bright">
+                <span>SE CONNECTER</span>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentcolor">
+                    <path d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z"></path>
+                </svg>
+            </button>
+        </form>
+
+        <a class="button button-dull" href="https://comptes.utc.fr/accounts-web/ext/pwdRecoveryForm.xhtml">
+    <span>J'ai oublié mon mot de passe</span>
+        </a>
+</div>
+    <script>
+        const pwdInput = document.getElementById("password")
+        const togglePwdSpan = document.getElementById("togglePassword")
+        togglePwdSpan.addEventListener("click", _ => {
+            const type = pwdInput.getAttribute("type") === "password" ? "text" : "password";
+            pwdInput.setAttribute("type", type)
+            if (type === "text") {
+                togglePwdSpan.classList.remove("eye-slash")
+                togglePwdSpan.classList.add("eye")
+            } else {
+                togglePwdSpan.classList.remove("eye")
+                togglePwdSpan.classList.add("eye-slash")
+            }
+        })
+    </script>
+</div>
+            </article>
+            <div><aside>Cette application (UTC Planning) a pour objet de proposer à la communauté
+    universitaire une application simple permettant d'avoir rapidement ses informations sur son 
+    planning étudiant.
+    Chaque utilisateur ne peut accéder qu'aux seules informations auxquelles il peut d'accéder dans
+    l'exercice de ses fonctions au sein de l'université. 
+</aside></div>
+        </div>
+    </div>
+    <div class="logo">
+    <a class="LogoCentre" href="https://www.utc.fr" title="Site UTC">
+        <img src="https://cas.utc.fr/cas/img/logo-utc.svg" alt="Université de Technologie de Compiègne"></a>
+</div>
+</main>
+</body>
+
+</html>
