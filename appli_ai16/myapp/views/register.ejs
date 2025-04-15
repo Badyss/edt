@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+    <!-- User Type Selection -->
+    <div id="user-type-selection" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-8">
+            <div>
+                <h2 class="text-center text-4xl font-bold text-gray-900">Créer un compte</h2>
+                <p class="mt-2 text-center text-lg text-gray-600">
+                    Choisissez votre type de compte
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="showForm('candidate')" class="w-full p-6 text-center bg-white rounded-lg border-2 border-indigo-600 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <div class="text-xl font-semibold text-gray-900">Candidat</div>
+                    <p class="mt-2 text-gray-600">Je cherche un emploi</p>
+                </button>
+                <button onclick="showForm('recruiter')" class="w-full p-6 text-center bg-white rounded-lg border-2 border-indigo-600 hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    <div class="text-xl font-semibold text-gray-900">Recruteur</div>
+                    <p class="mt-2 text-gray-600">Je recrute des talents</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Candidate Form -->
+    <div id="candidate-form" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 hidden">
+        <div class="max-w-md w-full space-y-8">
+            <div>
+                <h2 class="text-center text-4xl font-bold text-gray-900">Inscription Candidat</h2>
+                <button onclick="showUserTypeSelection()" class="mt-2 text-indigo-600 hover:text-indigo-500">← Retour</button>
+            </div>
+            <form id="candidate-registration-form" class="mt-8 space-y-6">
+                <div class="rounded-md space-y-4">
+                    <div>
+                        <label for="candidate-email" class="block text-base font-medium text-gray-700">Email</label>
+                        <input id="candidate-email" name="email" type="email" required 
+                            class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label for="candidate-prenom" class="block text-base font-medium text-gray-700">Prénom</label>
+                            <input id="candidate-prenom" name="prenom" type="text" required 
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                        </div>
+                        <div>
+                            <label for="candidate-nom" class="block text-base font-medium text-gray-700">Nom</label>
+                            <input id="candidate-nom" name="nom" type="text" required 
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="candidate-telephone" class="block text-base font-medium text-gray-700">Téléphone</label>
+                        <input id="candidate-telephone" name="telephone" type="tel" required 
+                            class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                    </div>
+                    <div>
+                        <label for="candidate-password" class="block text-base font-medium text-gray-700">Mot de passe</label>
+                        <input id="candidate-password" name="mot_de_passe" type="password" required
+                            class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                        <p class="mt-1 text-sm text-gray-500">Minimum 12 caractères, majuscules, minuscules, chiffres et caractères spéciaux.</p>
+                        <span id="candidate-password-error" class="text-red-500 text-sm mt-1 hidden"></span>
+                    </div>
+                    <div class="flex items-center">
+                        <input id="candidate-terms" name="terms" type="checkbox" required
+                            class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                        <label for="candidate-terms" class="ml-2 block text-sm text-gray-900">
+                            Je déclare avoir pris connaissance des conditions générales
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" 
+                    class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    S'inscrire
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Recruiter Form -->
+    <div id="recruiter-form" class="min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 hidden">
+        <div class="max-w-md w-full space-y-8">
+            <div>
+                <h2 class="text-center text-4xl font-bold text-gray-900">Inscription Recruteur</h2>
+                <button onclick="showUserTypeSelection()" class="mt-2 text-indigo-600 hover:text-indigo-500">← Retour</button>
+            </div>
+            <form id="recruiter-registration-form" class="mt-8 space-y-6">
+                <details open class="rounded-lg bg-white p-6 shadow-lg">
+                    <summary class="text-lg font-semibold text-gray-900 cursor-pointer">
+                        Informations personnelles
+                    </summary>
+                    <div class="mt-4 space-y-4">
+                        <div>
+                            <label for="recruiter-email" class="block text-base font-medium text-gray-700">Email</label>
+                            <input id="recruiter-email" name="email" type="email" required 
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="recruiter-prenom" class="block text-base font-medium text-gray-700">Prénom</label>
+                                <input id="recruiter-prenom" name="prenom" type="text" required 
+                                    class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                            </div>
+                            <div>
+                                <label for="recruiter-nom" class="block text-base font-medium text-gray-700">Nom</label>
+                                <input id="recruiter-nom" name="nom" type="text" required 
+                                    class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                            </div>
+                        </div>
+                        <div>
+                            <label for="recruiter-telephone" class="block text-base font-medium text-gray-700">Téléphone</label>
+                            <input id="recruiter-telephone" name="telephone" type="tel" required 
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                        </div>
+                        <div>
+                            <label for="recruiter-password" class="block text-base font-medium text-gray-700">Mot de passe</label>
+                            <input id="recruiter-password" name="mot_de_passe" type="password" required
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                            <p class="mt-1 text-sm text-gray-500">Minimum 12 caractères, majuscules, minuscules, chiffres et caractères spéciaux.</p>
+                            <span id="recruiter-password-error" class="text-red-500 text-sm mt-1 hidden"></span>
+                        </div>
+                    </div>
+                </details>
+
+                <details open class="rounded-lg bg-white p-6 shadow-lg">
+                    <summary class="text-lg font-semibold text-gray-900 cursor-pointer">
+                        Informations de l'entreprise
+                    </summary>
+                    <div class="mt-4 space-y-4">
+                        <div>
+                            <label for="recruiter-siren" class="block text-base font-medium text-gray-700">SIREN</label>
+                            <input id="recruiter-siren" name="siren" type="text" required 
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                        </div>
+                        <div>
+                            <label for="recruiter-nom-complet" class="block text-base font-medium text-gray-700">Nom complet de l'entreprise</label>
+                            <input id="recruiter-nom-complet" name="nom_complet" type="text" required 
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                        </div>
+                        <div>
+                            <label for="recruiter-secteur" class="block text-base font-medium text-gray-700">Type d'entreprise</label>
+                            <select id="recruiter-secteur" name="secteur" required 
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                                <option value="" disabled selected>Sélectionner un type</option>
+                                <option value="association">Association</option>
+                                <option value="Eurl">EURL</option>
+                                <option value="Sarl">SARL</option>
+                                <option value="SASU">SASU</option>
+                                <option value="SA">SA</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="recruiter-adresse" class="block text-base font-medium text-gray-700">Adresse</label>
+                            <input id="recruiter-adresse" name="adresse" type="text" required 
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                        </div>
+                        <div>
+                            <label for="recruiter-ville" class="block text-base font-medium text-gray-700">Ville</label>
+                            <input id="recruiter-ville" name="ville" type="text" required 
+                                class="mt-1 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-base">
+                        </div>
+                    </div>
+                </details>
+
+                <div class="flex items-center">
+                    <input id="recruiter-terms" name="terms" type="checkbox" required
+                        class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                    <label for="recruiter-terms" class="ml-2 block text-sm text-gray-900">
+                        Je déclare avoir pris connaissance des conditions générales
+                    </label>
+                </div>
+
+                <button type="submit" 
+                    class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    S'inscrire
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Message -->
+    <div class="flex min-h-screen items-center justify-center bg-gray-100 hidden" id="success-message">
+        <div class="rounded-lg bg-gray-50 px-16 py-14">
+          <div class="flex justify-center">
+            <div class="rounded-full bg-green-200 p-6">
+              <div class="flex h-16 w-16 items-center justify-center rounded-full bg-green-500 p-4">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-8 w-8 text-white">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <h3 class="my-4 text-center text-3xl font-semibold text-gray-700">Félicitations !</h3>
+          <p class="w-[230px] text-center font-normal text-gray-600">Votre demande sera traitée dans les plus brefs délais.</p>
+          <p class="text-gray-600 text-xs text-center pt-5">Redirection dans <span id="countdown" class="font-bold">3</span> secondes...</p>
+        </div>
+        </div>
+
+    <script>
+        function showForm(type) {
+            document.getElementById('user-type-selection').classList.add('hidden');
+            if (type === 'candidate') {
+                document.getElementById('candidate-form').classList.remove('hidden');
+            } else {
+                document.getElementById('recruiter-form').classList.remove('hidden');
+            }
+        }
+
+        function showUserTypeSelection() {
+            document.getElementById('candidate-form').classList.add('hidden');
+            document.getElementById('recruiter-form').classList.add('hidden');
+            document.getElementById('success-message').classList.add('hidden');
+            document.getElementById('user-type-selection').classList.remove('hidden');
+        }
+
+        function showSuccessMessage() {
+            document.getElementById('candidate-form').classList.add('hidden');
+            document.getElementById('recruiter-form').classList.add('hidden');
+            document.getElementById('user-type-selection').classList.add('hidden');
+            document.getElementById('success-message').classList.remove('hidden');
+            
+            let count = 3;
+            const countdownElement = document.getElementById('countdown');
+            
+            const countdown = setInterval(() => {
+                count--;
+                countdownElement.textContent = count;
+                
+                if (count <= 0) {
+                    clearInterval(countdown);
+                    window.location.href = 'index.html';
+                }
+            }, 1000);
+        }
+
+        function validatePassword(password) {
+            const passwordRegex = /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[!@#$%^&*()_+={}\[\]:;"'<>,.?/~`|\-]).{12,}$/;
+            return passwordRegex.test(password);
+        }
+
+        // Candidate form submission
+        document.getElementById('candidate-registration-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+            
+            const password = document.getElementById('candidate-password').value;
+            const errorMessage = document.getElementById('candidate-password-error');
+
+            if (!validatePassword(password)) {
+                errorMessage.textContent = "Le mot de passe est invalide et ne correspond pas aux exigences de sécurité.";
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            const formData = {
+                email: document.getElementById('candidate-email').value,
+                prenom: document.getElementById('candidate-prenom').value,
+                nom: document.getElementById('candidate-nom').value,
+                mot_de_passe: password,
+                telephone: document.getElementById('candidate-telephone').value
+            };
+
+            try {
+                const response = await fetch('/candidate_registration', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    showSuccessMessage();
+                } else {
+                    alert("Erreur lors de l'inscription.");
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert("Erreur réseau.");
+            }
+        });
+
+        // Recruiter form submission
+        document.getElementById('recruiter-registration-form').addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const password = document.getElementById('recruiter-password').value;
+            const errorMessage = document.getElementById('recruiter-password-error');
+
+            if (!validatePassword(password)) {
+                errorMessage.textContent = "Le mot de passe est invalide et ne correspond pas aux exigences de sécurité.";
+                errorMessage.classList.remove('hidden');
+                return;
+            }
+
+            const formData = {
+                email: document.getElementById('recruiter-email').value,
+                prenom: document.getElementById('recruiter-prenom').value,
+                nom: document.getElementById('recruiter-nom').value,
+                mot_de_passe: password,
+                telephone: document.getElementById('recruiter-telephone').value,
+                siren: document.getElementById('recruiter-siren').value,
+                nom_complet: document.getElementById('recruiter-nom-complet').value,
+                secteur: document.getElementById('recruiter-secteur').value,
+                adresse: document.getElementById('recruiter-adresse').value,
+                ville: document.getElementById('recruiter-ville').value
+            };
+
+            try {
+                const response = await fetch('/recruiter_registration', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    showSuccessMessage();
+                } else {
+                    alert("Erreur lors de l'inscription.");
+                }
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert("Erreur réseau.");
+            }
+        });
+    </script>
+</body>
+</html>

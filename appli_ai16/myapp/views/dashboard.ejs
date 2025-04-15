@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/256/174/174857.png" type="image/x-icon">
+
+    <title>Accueil - Plateforme de Recrutement</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex">
+<nav class=" rounded-md w-72 h-screen flex-col justify-between">
+	<div class=" bg-white h-full">
+		<div class="flex justify-center py-10 shadow-sm pr-4 items-center p-6 ">
+			<img src="https://cdn-icons-png.flaticon.com/256/174/174857.png" class="h-9 mt-1">
+			<div class="pl-2 flex">
+				<p class="text-xl font-bold text-blue-600">LinkedInchallah</h1>
+					<span class="text-xs block text-gray-800">DASHBOARD</span>
+			</div>
+		</div>
+		<div class="pl-10">
+			<ul class="space-y-8 pt-10">
+                <li class="flex space-x-4 items-center hover:text-blue-600 cursor-pointer" id="btn-utilisateurs">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+						stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2" />
+					</svg>
+					<a href="#">Utilisateurs</a>
+				</li>
+                <li class="flex space-x-4 items-center hover:text-blue-600 cursor-pointer" id="btn-recruteurs">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+						stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+					</svg>
+					<a href="#">Recruteurs</a>
+				</li>
+                <li class="flex space-x-4 items-center hover:text-blue-600 cursor-pointer" id="btn-entreprises">
+					<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+						stroke="currentColor">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+							d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+					</svg>
+					<a href="#">Entreprises</a>
+				</li>
+                <li class="flex space-x-4 items-center hover:text-blue-600 cursor-pointer" id="btn-logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    </svg>
+                    <a href="#">Logout</a>
+				</li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<div id="errorMessage" class="text-red-600 font-semibold mt-10 flex items-center justify-center h-full w-full hidden"></div>
+
+<section class="mx-auto p-6 font-sans w-full" id="users"></section>
+<section class="mx-auto p-6 font-sans  w-full  hidden" id="recruiters"></section>
+<section class="mx-auto p-6 font-sans  w-full  hidden" id="entreprises"></section>
+
+  
+<script>
+    async function chargerUtilisateurs() {
+      const section = document.getElementById('users');
+      const errorMessage = document.getElementById('errorMessage');
+      section.innerHTML = ''; // Nettoyer la section
+  
+      try {
+        const response = await fetch('/Users');
+        if (!response.ok) throw new Error('Réponse du serveur non valide');
+        const users = await response.json();
+  
+        // Création de l’enveloppe principale
+        const container = document.createElement('div');
+        container.className = 'bg-white rounded-xl overflow-hidden border border-gray-100';
+  
+        // En-tête
+        container.innerHTML = `
+          <div class="bg-gradient-to-r from-gray-50 to-blue-50 p-6 border-b border-gray-200">
+            <h2 class="text-2xl font-bold text-gray-800 mb-2">Gestion des utilisateurs</h2>
+          </div>
+  
+          <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex flex-wrap justify-between items-center gap-4">
+            <div class="flex items-center relative">
+              <input type="text" placeholder="Rechercher un utilisateur..." class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 focus:outline-none w-full sm:w-72">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+            </div>
+            <div class="flex items-center gap-4">
+              <select class="bg-white border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                <option value="">Tous les types</option>
+                <option value="Candidat">Candidat</option>
+                <option value="Recruteur">Recruteur</option>
+              </select>
+              <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+                <span class="hidden sm:inline">Exporter</span>
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:ml-2 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        `;
+  
+        // Tableau
+        const tableWrapper = document.createElement('div');
+        tableWrapper.className = 'w-full overflow-x-auto';
+        const table = document.createElement('table');
+        table.className = 'w-full';
+        table.innerHTML = `
+          <thead>
+            <tr class="bg-gray-50 text-left text-gray-700 font-medium border-b">
+              <th class="px-6 py-4">Utilisateur</th>
+              <th class="px-6 py-4">Email</th>
+              <th class="px-6 py-4">Téléphone</th>
+              <th class="px-6 py-4">Date d'inscription</th>
+              <th class="px-6 py-4">Type</th>
+              <th class="px-6 py-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody id="userTable" class="divide-y divide-gray-200"></tbody>
+        `;
+        tableWrapper.appendChild(table);
+        container.appendChild(tableWrapper);
+  
+        // Footer / Pagination
+        const footer = document.createElement('div');
+        footer.className = 'px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between';
+        footer.innerHTML = `
+          <p class="text-sm text-gray-600">Affichage de <span class="font-medium">${users.length}</span> utilisateurs sur <span class="font-medium">${users.length}</span></p>
+          <div class="flex items-center space-x-2">
+            <button class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">Précédent</button>
+            <button class="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700">1</button>
+            <button class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">Suivant</button>
+          </div>
+        `;
+        container.appendChild(footer);
+  
+        section.appendChild(container);
+  
+        // Insertion des lignes d’utilisateurs
+        const tbody = document.getElementById('userTable');
+        users.forEach(user => {
+          const row = document.createElement('tr');
+          row.className = 'hover:bg-gray-50 transition-colors';
+  
+          const badgeClass = user.user_type === 'Candidat' 
+            ? 'bg-blue-100 text-blue-800' 
+            : 'bg-indigo-100 text-indigo-800';
+  
+            row.innerHTML = `
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="flex items-center">
+                  <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-medium">
+                    ${user.prenom.charAt(0)}${user.nom.charAt(0)}
+                  </div>
+                  <div class="ml-4">
+                    <div class="font-medium text-gray-900">${user.prenom} ${user.nom}</div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-gray-700">${user.email}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-gray-700">${user.telephone}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <div class="text-gray-700">${new Date(user.date_creation).toLocaleDateString('fr-FR')}</div>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap">
+                <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${badgeClass}">
+                  ${user.user_type}
+                </span>
+              </td>
+              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <div class="flex justify-end items-center space-x-3">
+                  ${
+                    user.user_type !== "Administrateur"
+                      ? `<button class="text-gray-600 hover:text-gray-900" title="Accorder des privilèges" onclick="setadmin('${user.email}')">
+                          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4 8 5.79 8 8s1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            <path d="M20 12v-2h-2V8h-2v2h-2v2h2v2h2v-2h2z"/>
+                          </svg>
+                        </button>`
+                      : ""
+                  }
+                  <button class="text-red-600 hover:text-red-900 delete-user-btn" onclick="suppression('${user.email}')">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="delete-user-${user.email}">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                    </svg>
+                  </button>
+                </div>
+              </td>
+            `;
+
+          tbody.appendChild(row);
+        });
+  
+      } catch (error) {
+        console.error('Erreur lors du chargement des utilisateurs :', error);
+        errorMessage.textContent = "❌ Impossible de charger les données.";
+      }
+    }
+  
+    async function chargerRecruteurs() {
+    const section = document.getElementById('recruiters');
+    const errorMessage = document.getElementById('errorMessage');
+    section.innerHTML = ''; // Nettoyer la section
+
+    try {
+      const response = await fetch('/recruteurs');
+      if (!response.ok) throw new Error('Réponse du serveur non valide');
+      const recruteurs = await response.json();
+
+      // Conteneur principal
+      const container = document.createElement('div');
+      container.className = 'bg-white rounded-xl overflow-hidden border border-gray-100';
+
+      // En-tête
+      container.innerHTML = `
+        <div class="bg-gradient-to-r from-gray-50 to-blue-50 p-6 border-b border-gray-200">
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">Gestion des recruteurs</h2>
+        </div>
+
+        <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex flex-wrap justify-between items-center gap-4">
+          <div class="flex items-center relative">
+            <input type="text" placeholder="Rechercher un recruteur..." class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 focus:outline-none w-full sm:w-72">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <div class="flex items-center gap-4">
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+              <span class="hidden sm:inline">Exporter</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:ml-2 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Tableau
+      const tableWrapper = document.createElement('div');
+      tableWrapper.className = 'w-full overflow-x-auto';
+      const table = document.createElement('table');
+      table.className = 'w-full';
+      table.innerHTML = `
+        <thead>
+          <tr class="bg-gray-50 text-left text-gray-700 font-medium border-b">
+            <th class="px-6 py-4">Recruteur</th>
+            <th class="px-6 py-4">Email</th>
+            <th class="px-6 py-4">Téléphone</th>
+            <th class="px-6 py-4">Date d'inscription</th>
+            <th class="px-6 py-4">Statut</th>
+            <th class="px-6 py-4">Entreprise</th>
+            <th class="px-6 py-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="recruteurTable" class="divide-y divide-gray-200"></tbody>
+      `;
+      tableWrapper.appendChild(table);
+      container.appendChild(tableWrapper);
+
+      // Footer
+      const footer = document.createElement('div');
+      footer.className = 'px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between';
+      footer.innerHTML = `
+        <p class="text-sm text-gray-600">Affichage de <span class="font-medium">${recruteurs.length}</span> recruteurs sur <span class="font-medium">${recruteurs.length}</span></p>
+        <div class="flex items-center space-x-2">
+          <button class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">Précédent</button>
+          <button class="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700">1</button>
+          <button class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">Suivant</button>
+        </div>
+      `;
+      container.appendChild(footer);
+      section.appendChild(container);
+
+      // Remplissage des lignes
+      const tbody = document.getElementById('recruteurTable');
+      recruteurs.forEach(user => {
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-gray-50 transition-colors';
+
+        row.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-medium">
+                  ${user.prenom.charAt(0)}${user.nom.charAt(0)}
+                </div>
+                <div class="ml-4">
+                  <div class="font-medium text-gray-900">${user.prenom} ${user.nom}</div>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap"><div class="text-gray-700">${user.email}</div></td>
+            <td class="px-6 py-4 whitespace-nowrap"><div class="text-gray-700">${user.telephone}</div></td>
+            <td class="px-6 py-4 whitespace-nowrap"><div class="text-gray-700">${new Date(user.date_creation).toLocaleDateString('fr-FR')}</div></td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
+                user.statut === 'accepté' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+              }">
+                ${user.statut}
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-gray-700">${user.entreprise_nom} <br><span class="text-sm text-gray-500">SIREN : ${user.entreprise_siren}</span></div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <div class="flex justify-end items-center space-x-3">
+                ${
+                  user.statut !== 'accepté'
+                    ? `<button class="text-gray-600 hover:text-gray-900" onclick="acceptrecruteur('${user.email}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>`
+                    : ''
+                }
+                <button class="text-red-600 hover:text-red-900" onclick="suppression('${user.email}')">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          `;
+        tbody.appendChild(row);
+      });
+
+    } catch (error) {
+      console.error('Erreur lors du chargement des recruteurs :', error);
+      errorMessage.textContent = "❌ Impossible de charger les recruteurs.";
+    }
+  }
+
+  async function chargerEntreprises() {
+    const section = document.getElementById('entreprises');
+    const errorMessage = document.getElementById('errorMessage');
+    section.innerHTML = ''; // Nettoyer la section
+
+    try {
+      const response = await fetch('/entreprises');
+      if (!response.ok) throw new Error('Réponse du serveur non valide');
+      const entreprises = await response.json();
+
+      // Enveloppe principale
+      const container = document.createElement('div');
+      container.className = 'bg-white rounded-xl overflow-hidden border border-gray-100';
+
+      // En-tête
+      container.innerHTML = `
+        <div class="bg-gradient-to-r from-gray-50 to-blue-50 p-6 border-b border-gray-200">
+          <h2 class="text-2xl font-bold text-gray-800 mb-2">Gestion des entreprises</h2>
+        </div>
+
+        <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex flex-wrap justify-between items-center gap-4">
+          <div class="flex items-center relative">
+            <input type="text" placeholder="Rechercher une entreprise..." class="pl-10 pr-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-blue-300 focus:border-blue-300 focus:outline-none w-full sm:w-72">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 absolute left-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+          <div class="flex items-center gap-4">
+            <select class="bg-white border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-300">
+              <option value="">Tous les statuts</option>
+              <option value="active">Active</option>
+              <option value="inactif">Inactif</option>
+            </select>
+            <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
+              <span class="hidden sm:inline">Exporter</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 sm:ml-2 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      `;
+
+      // Tableau
+      const tableWrapper = document.createElement('div');
+      tableWrapper.className = 'w-full overflow-x-auto';
+      const table = document.createElement('table');
+      table.className = 'w-full';
+      table.innerHTML = `
+        <thead>
+          <tr class="bg-gray-50 text-left text-gray-700 font-medium border-b">
+            <th class="px-6 py-4">SIREN</th>
+            <th class="px-6 py-4">Nom</th>
+            <th class="px-6 py-4">Type</th>
+            <th class="px-6 py-4">Adresse</th>
+            <th class="px-6 py-4">Ville</th>
+            <th class="px-6 py-4">Statut</th>
+            <th class="px-6 py-4">Recruteurs</th>
+            <th class="px-6 py-4">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="entrepriseTable" class="divide-y divide-gray-200"></tbody>
+      `;
+      tableWrapper.appendChild(table);
+      container.appendChild(tableWrapper);
+
+      // Footer
+      const footer = document.createElement('div');
+      footer.className = 'px-6 py-4 bg-gray-50 border-t border-gray-200 flex items-center justify-between';
+      footer.innerHTML = `
+        <p class="text-sm text-gray-600">Affichage de <span class="font-medium">${entreprises.length}</span> entreprises</p>
+        <div class="flex items-center space-x-2">
+          <button class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">Précédent</button>
+          <button class="px-3 py-1 rounded bg-blue-600 text-white hover:bg-blue-700">1</button>
+          <button class="px-3 py-1 rounded border border-gray-300 bg-white text-gray-500 hover:bg-gray-50">Suivant</button>
+        </div>
+      `;
+      container.appendChild(footer);
+      section.appendChild(container);
+
+      // Lignes du tableau
+      const tbody = document.getElementById('entrepriseTable');
+      entreprises.forEach(entreprise => {
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-gray-50 transition-colors';
+
+        const badgeClass = entreprise.statut === 'active'
+          ? 'bg-green-100 text-green-800'
+          : 'bg-red-100 text-red-800';
+
+          row.innerHTML = `
+            <td class="px-6 py-4 whitespace-nowrap">${entreprise.siren}</td>
+            <td class="px-6 py-4 whitespace-nowrap">${entreprise.nom_complet}</td>
+            <td class="px-6 py-4 whitespace-nowrap">${entreprise.type}</td>
+            <td class="px-6 py-4 whitespace-nowrap">${entreprise.adresse}</td>
+            <td class="px-6 py-4 whitespace-nowrap">${entreprise.ville}</td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <span class="px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${badgeClass}">
+                ${entreprise.statut}
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">${entreprise.nombre_recruteurs}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <div class="flex justify-end items-center space-x-3">
+                ${
+                  entreprise.statut !== 'accepté'
+                    ? `<button class="text-gray-600 hover:text-gray-900" onclick="acceptEntreprise('${entreprise.siren}')">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                      </button>`
+                    : ''
+                }
+                <button class="text-red-600 hover:text-red-900" onclick="supprimerEntreprise('${entreprise.siren}')">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          `;
+
+
+        tbody.appendChild(row);
+      });
+
+    } catch (error) {
+      console.error('Erreur lors du chargement des entreprises :', error);
+      errorMessage.textContent = "❌ Impossible de charger les entreprises.";
+    }
+  }
+
+  chargerUtilisateurs();
+
+  function viderSections() {
+  const sections = ['users', 'recruiters', 'entreprises'];
+
+  // Vider le contenu et cacher toutes les sections
+  sections.forEach(id => {
+    const section = document.getElementById(id);
+    section.innerHTML = "";
+    section.classList.add('hidden');
+    section.classList.remove('flex'); // ou 'block' selon ce que tu veux afficher
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Bouton Utilisateurs
+  document.getElementById("btn-utilisateurs").addEventListener("click", () => {
+    viderSections();
+    const section = document.getElementById("users");
+    section.classList.remove('hidden');
+    chargerUtilisateurs();
+  });
+
+  // Bouton Recruteurs
+  document.getElementById("btn-recruteurs").addEventListener("click", () => {
+    viderSections();
+    const section = document.getElementById("recruiters");
+    section.classList.remove('hidden');
+    chargerRecruteurs();
+  });
+
+  // Bouton Entreprises
+  document.getElementById("btn-entreprises").addEventListener("click", () => {
+    viderSections();
+    const section = document.getElementById("entreprises");
+    section.classList.remove('hidden');
+    chargerEntreprises();
+  });
+
+  // Bouton Logout
+  document.getElementById("btn-logout").addEventListener("click", () => {
+    viderSections();
+    window.location.href = '/logout';
+  });
+});
+
+async function suppression(email) {
+  const confirmation = confirm(`Supprimer l'utilisateur avec l'email : ${email} ?`);
+  if (!confirmation) return;
+
+  try {
+    const response = await fetch('/deluser', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(`Utilisateur supprimé : ${email}`);
+      const row = document.querySelector(`button[onclick="suppression('${email}')"]`).closest('tr');
+      if (row) row.remove(); // Supprimer la ligne correspondante
+    } else {
+      alert(`Erreur : ${data.error || 'Échec de la suppression'}`);
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Erreur lors de la requête de suppression.');
+  }
+}
+
+async function setadmin(email) {
+  const confirmation = confirm(`Passer l'utilisateur administrateur : ${email} ?`);
+  if (!confirmation) return;
+
+  try {
+    const response = await fetch('/setadmin', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(`Utilisateur administrateur : ${email}`);
+      const row = document.querySelector(`button[onclick="setadmin('${email}')"]`)?.closest('tr');
+      if (row) {
+        // Met à jour la cellule statut (colonne user_type)
+        const statutCell = row.querySelector('td:nth-child(5) span');
+        if (statutCell) {
+          statutCell.textContent = 'Administrateur';
+          statutCell.className = 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-purple-100 text-purple-800';
+        }
+
+        // Supprime le bouton "Accorder des privilèges"
+        const adminButton = row.querySelector(`button[onclick="setadmin('${email}')"]`);
+        if (adminButton) adminButton.remove();
+      }
+    } else {
+      alert(`Erreur : ${data.error || 'Échec de la promotion'}`);
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Erreur lors de la requête de promotion.');
+  }
+}
+
+async function acceptrecruteur(email) {
+  const confirmation = confirm(`Accepter le recruteur avec l'email : ${email} ?`);
+  if (!confirmation) return;
+
+  try {
+    const response = await fetch('/validerRecruteur', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await response.text(); // ou await response.json() si tu retournes un JSON
+
+    if (response.ok) {
+      alert(`Recruteur accepté : ${email}`);
+
+      const row = document.querySelector(`button[onclick="acceptrecruteur('${email}')"]`).closest('tr');
+      if (row) {
+        const statutCell = row.querySelector('.statut-cell'); // colonne qui contient le statut
+        if (statutCell) {
+          statutCell.textContent = 'accepté'; // ✅ Mise à jour visuelle du statut
+          statutCell.classList.remove('text-red-600');
+          statutCell.classList.add('text-green-600');
+        }
+
+        // Optionnel : désactiver le bouton après acceptation
+        const button = row.querySelector('button');
+        button.disabled = true;
+        button.textContent = 'Accepté';
+        button.classList.remove('hover:text-green-900');
+        button.classList.add('cursor-not-allowed', 'opacity-50');
+      }
+    } else {
+      alert(`Erreur : ${data.error || 'Échec de la validation'}`);
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Erreur lors de la requête de validation.');
+  }
+}
+
+async function acceptEntreprise(siren) {
+  const confirmation = confirm(`Valider l'entreprise avec le SIREN : ${siren} ?`);
+  if (!confirmation) return;
+
+  try {
+    const response = await fetch('/validerEntreprise', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ siren })
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      alert(`Entreprise validée : ${siren}`);
+
+      const button = document.querySelector(`button[onclick="acceptEntreprise('${siren}')"]`);
+
+      if (button) {
+        button.remove();
+
+        const row = button.closest('tr');
+        if (row) {
+          const statutSpan = row.querySelector('span');
+          if (statutSpan) {
+            statutSpan.textContent = 'accepté';
+            statutSpan.className = 'px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800';
+          }
+        }
+      }
+    } else {
+      alert(`Erreur : ${data.error || 'Échec de la validation'}`);
+    }
+  } catch (err) {
+    console.error(err);
+    alert('Erreur lors de la requête de validation.');
+  }
+}
+
+async function supprimerEntreprise(siren) {
+  const confirmation = confirm(`Supprimer l'entreprise avec le siren : ${siren} ?`);
+  if (!confirmation) return;
+
+  try {
+    const response = await fetch('/supprimerEntreprise', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ siren })
+    });
+
+    let data;
+    try {
+      data = await response.json();
+    } catch (e) {
+      console.error("La réponse n'est pas du JSON valide");
+      data = {};
+    }
+
+    if (response.ok) {
+      const row = document.querySelector(`button[onclick="supprimerEntreprise('${siren}')"]`)?.closest('tr');
+      if (row) row.remove();
+
+      alert(data.message || `Entreprise supprimée : ${siren}`);
+    } else {
+      alert(`Erreur : ${data.error || 'Échec de la suppression'}`);
+    }
+  } catch (err) {
+    console.error('Erreur réseau ou serveur :', err);
+    alert('Erreur lors de la requête de suppression.');
+  }
+}
+
+
+
+
+  </script>
+  
+</html>
+</html>
